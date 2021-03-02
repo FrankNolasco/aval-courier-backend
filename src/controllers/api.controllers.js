@@ -1,10 +1,6 @@
 const ApiCtrl = {};
 var mssql = require("mssql");
-const {
-  executeQuery,
-  returnQuery,
-  executeAxios,
-} = require("../scripts/querys");
+const { executeQuery, executeAxios } = require("../scripts/querys");
 
 ApiCtrl.login = (req, res, next) => {
   const { username } = req.body;
@@ -17,11 +13,11 @@ ApiCtrl.login = (req, res, next) => {
 };
 
 ApiCtrl.ListaOrdenServicio = (req, res, next) => {
-  executeQuery("dbo.ListaOrdenServicio", res, next);
+  executeQuery("dbo.ListaOrdenesServicio", res, next);
 };
 
 ApiCtrl.ListaColaborador = (req, res, next) => {
-  executeQuery("dbo.ListaColaborador", res, next);
+  executeQuery("dbo.ListaTrabajadores", res, next);
 };
 
 ApiCtrl.ListaUsuarios = (req, res, next) => {
@@ -38,11 +34,11 @@ ApiCtrl.ListaUsuarios = (req, res, next) => {
 };
 
 ApiCtrl.ListaPuestoTrabajo = (req, res, next) => {
-  executeQuery("dbo.ListaPuestoTrabajo", res, next);
+  executeQuery("dbo.ListaPuestosTrabajo", res, next);
 };
 
 ApiCtrl.ListaMensajero = (req, res, next) => {
-  executeQuery("dbo.ListaMensajero", res, next);
+  executeQuery("dbo.ListaMensajeros", res, next);
 };
 
 ApiCtrl.ListaIncidencias = (req, res, next) => {
@@ -63,21 +59,20 @@ ApiCtrl.ListaCiudad = async (req, res, next) => {
   const distritos = await executeAxios(
     "http://localhost:5000/api/distritos/listar"
   );
-
   let response = [];
-
   response = departamentos?.map((el) => ({
     value: el.id_departamento,
     label: el.nombre_departamento,
-    children: provincias
+    provincias: provincias
       .filter((f) => f.id_departamento === el.id_departamento)
       .map((m) => ({
-        value: el.id_provincia,
-        label: el.nombre_provincia,
-        children: distritos.filter((f) => f.id_provincia === m.id_provincia).map(d => ({value : d.id_distrito , label : d.nombre_distrito})),
+        value: m.id_provincia,
+        label: m.nombre_provincia,
+        distritos: distritos
+          .filter((f) => f.id_provincia === m.id_provincia)
+          .map((d) => ({ value: d.id_distrito, ciudad: d.nombre_distrito })),
       })),
   }));
-  console.log(response)
   res.send(response);
 };
 
@@ -91,6 +86,10 @@ ApiCtrl.ListaDistritos = (req, res, next) => {
 
 ApiCtrl.ListaDepartamentos = (req, res, next) => {
   executeQuery("dbo.ListaDepartamentos", res, next);
+};
+
+ApiCtrl.ListarSucursales = (req, res, next) => {
+  executeQuery("dbo.ListarSucursales", res, next);
 };
 
 module.exports = ApiCtrl;

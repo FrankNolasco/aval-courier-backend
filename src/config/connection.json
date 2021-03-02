@@ -1,11 +1,11 @@
 {
-    "server":"DESKTOP-MVH65PA",
-    "instance" : "SQLEXPRESS",
+    "server":"localhost",
+    "instanceName" : "NEUREXSERVER",
     "authentication": {
         "type": "default",
         "options": {
             "userName":"sa",
-            "password":"1234"
+            "password":"Frank09p0r123*"
         }
     },
     "port" : 1433,
