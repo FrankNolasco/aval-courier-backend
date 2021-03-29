@@ -152,5 +152,8 @@ ApiCtrl.ListarRoles = (req, res, next) => {
   executeQuery("dbo.ListarRoles", res, next);
 };
 
+ApiCtrl.ListaTurnos = (req, res, next) => {
+  executeQuery("dbo.listarTurnos", res, next);
+}
 
 module.exports = ApiCtrl;

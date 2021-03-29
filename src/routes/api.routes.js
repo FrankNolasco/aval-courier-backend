@@ -19,6 +19,7 @@ const {
   InsertarUsuario,
   ListarRoles,
   BuscarTrabajador,
+  ListaTurnos
 } = require("../controllers/api.controllers");
 const {
   ListarDireccionesXPersona,
@@ -33,6 +34,7 @@ routes.post("/trabajadores/buscar",BuscarTrabajador)
 routes.post("/usuarios/listar", ListaUsuarios);
 routes.post("/usuarios/insertar", InsertarUsuario);
 routes.post("/puestos-de-trabajo/listar", ListaPuestoTrabajo);
+routes.post("/turnos/listar", ListaTurnos);
 routes.post("/mensajeros/listar", ListaMensajero);
 routes.post("/incidencias/listar", ListaIncidencias);
 routes.post("/personas/listar", ListaPersonas);
